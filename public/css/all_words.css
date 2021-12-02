@@ -1,0 +1,179 @@
+::-webkit-scrollbar {
+    width: 10px;
+  }
+ 
+  ::-webkit-scrollbar-track {
+    background: #0ED2A3; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  
+
+  .ss_nav_show {
+    
+    background: #0ED2A3; 
+    width: fit-content;
+    
+}
+
+
+.ss_header_canvas {
+    font-weight: 400;  
+}
+
+.ss_sidedbar {
+    height: 100%;  
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 0px 0px 0px 0px;
+}
+
+.ss_sidedbar h1 {
+    font-weight: 400;
+    font-size: 30px;
+    margin: 0px 30px;
+    
+}
+
+.ss_brand_holder {
+    position: relative;
+    margin-bottom: 19px;
+}
+
+.ss_brand_holder i {
+    position: absolute;
+    font-size: 25px;
+    left: 5px;
+    top: 7px;
+}
+
+.ss_pages {
+    margin: 0px 0px 0px 50px;
+}
+
+.ss_sidedbar p {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 10px;
+    padding-right: 50px;
+
+}
+
+.ss_sidedbar p:hover {
+    background: #fff;
+    color: #0ED2A3;
+    cursor: pointer;
+    
+}
+
+.ss_sidedbar input:focus {
+    outline: none !important;
+    box-shadow: none !important;  
+    border-bottom: 1px solid #fff;
+}
+
+
+.ss_primary_text {
+    color: #0ED2A3; 
+}
+
+.ss_primary_bg {
+    background-color: #0ED2A3; 
+}
+
+.ss_line {
+    border-bottom: 3px solid #DBDBDB;
+    
+}
+
+.ss_header_holder h2 {
+    font-size: 25px;
+    font-weight: 400;
+    margin-top: 5px;
+    margin-right: 20px;
+    color: #0ED2A3;
+}
+
+.ss_check_box {
+    border: 1px solid #0ED2A3;
+}
+
+ .ss_check_box:checked  {
+    background-color: #0ED2A3;
+    border: none;
+}
+
+.ss_check_box:focus {
+    box-shadow: none;
+}
+
+.ss_line_vertical {
+    border-right: 3px solid #DBDBDB;
+}
+
+.ss_left_content {
+    padding-left: 20px;
+}
+
+.ss_text_holder p{
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.ss_col_img_holder {
+    width: 35%;
+}
+
+.ss_col_img_holder img{
+    width: 30%;
+    height: auto;
+    object-fit: cover;
+}
+
+@media(max-width: 768px) {
+    .ss_sidebar_col {
+        display: none;  
+    }
+
+    .ss_nav_hamburger { 
+        width: auto;
+    }
+
+
+
+} 
+
+@media(max-width: 767px)  {
+    .ss_colapse {
+        display: none;
+    }
+
+    .ss_pages {
+        margin-top: 30px;
+    }
+}
+
+
+@media(max-width: 1000px) {
+
+    .ss_pages {
+        margin-left: 20px;
+    }
+
+    .ss_pages p {
+        padding-right: 10px;
+    }
+
+    .ss_text_holder p{
+        font-size: 18px;
+    }
+    
+
+} 

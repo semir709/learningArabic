@@ -1,0 +1,152 @@
+label {
+    color: #0ED2A3;
+}
+
+/* .ss_btn_toggler {
+    color: #0ED2A3 !important;
+} */
+
+
+
+/* .ss_brand {
+    margin-right: 104px;
+    font-size: 35px;
+    color: #0ED2A3 !important;
+} */
+/* 
+.ss_link {
+    display: inline-block;
+    background-color: #0ED2A3;
+    color: #fff !important;
+    border-radius: 10px;
+    font-size: 15px;
+    
+} */
+
+
+/* .ss_link_add{
+    padding:5px 50px !important;
+    margin-right: 30px;
+}
+
+.ss_link_all {
+    padding:5px 32px !important;
+}
+
+.ss_link_logout {
+    padding:5px 30px !important;
+} */
+
+.ss_logout_icon {
+    font-size: 15px
+}
+
+.ss_input_holder {
+    border: 1px solid #DBDBDB;
+
+}
+
+.ss_input {
+    color: #0ED2A3 !important;
+    padding: 5px !important;
+}
+
+.ss_input:focus {
+    box-shadow: none;
+}
+
+.ss_input::placeholder {
+    color: #0ED2A3;
+    
+}
+
+.ss_btn_down_arrow {
+    color: #0ED2A3;
+}
+
+.ss_btn_down_arrow:focus {
+    box-shadow: none;
+}
+
+.ss_btn_down_arrow:hover {
+    color: #0ED2A3;
+}
+
+.ss_img_holder {
+    min-height: 100px;
+    border: 1px solid #DBDBDB;
+    color: #0ED2A3;
+    padding:5px;
+}
+
+.ss_img_holder object {
+    object-fit: cover;
+    width: 20%;
+    height: auto;
+    font-size: 1rem;
+}
+
+.ss_img_holder i {
+    font-size: 25px;
+}
+
+.ss_btn {
+    background-color: #0ED2A3;
+    color: #fff;
+    font-size: 15px;
+
+}
+
+.ss_btn:hover {
+    color: #fff;   
+}
+
+.ss_btn:focus {
+    box-shadow: none;
+}
+
+.ss_btn_del {
+    padding: 6px 15px;
+}
+
+@media(max-width: 768px) {
+    .ss_page {
+        width: 55%;
+        margin-bottom: 20px;
+    }
+
+    .ss_btn_update {
+        margin-bottom: 20px;
+    }
+
+    .ss_btn {
+        width: 52%;
+    }
+}
+
+
+@media(max-width: 992px) {
+    /* .ss_link {
+        background-color:  #f3f3f3;
+        color: #0ED2A3 !important;
+        border-radius: 0;
+        padding: 5px 5px !important;
+        width: 80%;
+        margin-bottom: 10px;
+        
+    }      */
+    /* .ss_link_add{
+        
+        margin-right: 0px;
+    } */
+
+    /* .ss_navbar_ul {
+        margin-bottom: 0px !important;
+    } */
+
+    /* .ss_navbar_collapse {
+        margin-left: 17%;
+        
+    } */
+
+}
