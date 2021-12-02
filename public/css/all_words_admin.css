@@ -1,0 +1,71 @@
+.ss_container_holder {
+    margin-top: 50px;
+}
+
+.ss_line {
+    border-bottom: 3px solid #DBDBDB;
+  
+}
+
+.ss_header_holder h2 {
+    font-size: 25px;
+    font-weight: 400;
+    margin-top: 5px;
+    margin-right: 20px;
+    color: #0ED2A3;
+}
+
+.ss_check_box {
+    border: 1px solid #0ED2A3;
+   
+}
+
+ .ss_check_box:checked  {
+    background-color: #0ED2A3;
+    border: none;
+}
+
+.ss_check_box:focus {
+    box-shadow: none;
+}
+.ss_p_del_content {
+    color: #0ED2A3;
+}
+
+.ss_col_img_holder {
+    width: 15%;
+}
+
+.ss_col_img_holder img{
+    width: 30%;
+    height: auto;
+    object-fit: cover;
+}
+
+.ss_content_holder p {
+    font-size: 20px;
+}
+
+@media(max-width: 992px) {
+    .ss_col_img_holder {
+        width: 20%;
+        margin-bottom: 13px;
+    }
+    
+}
+
+@media(max-width: 768px) {
+    .ss_col_img_holder {
+        width: 30%;
+        margin-bottom: 13px;
+    }
+    
+}
+
+@media(max-width: 576px) {
+    .ss_col_img_holder {
+        width: 40%;
+        margin-bottom: 13px;
+    }
+    
+}
