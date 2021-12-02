@@ -1,0 +1,57 @@
+.ss_btn_toggler {
+    color: #0ED2A3 !important;
+} 
+.ss_brand {
+    margin-right: 104px;
+    font-size: 35px;
+    color: #0ED2A3 !important;
+} 
+
+.ss_link {
+    display: inline-block;
+    background-color: #0ED2A3;
+    color: #fff !important;
+    border-radius: 10px;
+    font-size: 15px;
+    
+} 
+
+.ss_link_add{
+    padding:5px 50px !important;
+    margin-right: 30px;
+}
+
+.ss_link_all {
+    padding:5px 32px !important;
+}
+
+.ss_link_logout {
+    padding:5px 30px !important;
+}
+
+
+@media(max-width: 992px) {
+    .ss_link {
+        background-color:  #f3f3f3;
+        color: #0ED2A3 !important;
+        border-radius: 0;
+        padding: 5px 5px !important;
+        width: 80%;
+        margin-bottom: 10px;
+        
+    }     
+    .ss_link_add{
+        
+        margin-right: 0px;
+    }
+
+    .ss_navbar_ul {
+        margin-bottom: 0px !important;
+    }
+
+    .ss_navbar_collapse {
+        margin-left: 17%;
+        
+    }
+
+}
