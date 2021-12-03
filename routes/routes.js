@@ -11,4 +11,6 @@ router.get('/login', admin.getLogin);
 router.get('/admin', admin.getAdmin);
 router.get('/admin/allWords', admin.getAllWords);
 
+router.post('/admin/save', admin.save_admin);
+
 module.exports = router;
