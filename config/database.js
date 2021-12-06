@@ -3,9 +3,9 @@ const mysql = require('mysql2');
 module.exports = {
     getCon: function() {
         let con = mysql.createConnection({
-            host:'localhost',
-            user:'root',
-            password:'scneogjaurnc7a82647',
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
             database: "arabic-words"
         });
 

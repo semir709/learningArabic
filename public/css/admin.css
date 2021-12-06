@@ -44,7 +44,7 @@ label {
     padding:5px;
 }
 
-.ss_img_holder object {
+.ss_img_holder img {
     object-fit: cover;
     width: 20%;
     height: auto;
@@ -74,7 +74,15 @@ label {
     padding: 6px 15px;
 }
 
+.ss_dialog_box {
+    display: none;
+}
+
 @media(max-width: 768px) {
+
+    .ss_img_holder {
+        min-height: 10px
+    }
     .ss_page {
         width: 55%;
         margin-bottom: 20px;

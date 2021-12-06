@@ -18,7 +18,7 @@
           <div class="row">
               <div class="col-2"></div>
               <div class="col-8">
-
+                <div id="msg"></div>
                 <div class="row mt-5">
                     <div class="col-12">
                         <label for="category">Category</label>
@@ -27,11 +27,9 @@
             
                             <button class="btn  dropdown-toggle p-0 me-3 ss_btn_down_arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                             <ul class="dropdown-menu ">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="#">Separated link</a></li>
+                              <% all_category.forEach(d => { %>
+                                <li><a class="dropdown-item" href="#"><%= d._name%></a></li>
+                              <% }) %>
                             </ul>
             
                           </div>
@@ -41,8 +39,9 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <label for="image_word">Arabic word</label>
-                        <div class="ss_img_holder d-flex justify-content-between ">
-                            <object data="/img/test.png" id="image_word"></object>
+                        <div class="ss_img_holder d-flex justify-content-between" id="img_holder">
+                            <img src="/img/test.png" title="test.png" id="image_word"></img>
+                            <input name="img"  id="upload" class="ss_dialog_box" type="file"  onchange="onFileSelected(event)"  accept="image/*" >
                             <i class="fas fa-image"></i>
                         </div>
                     </div>
@@ -56,11 +55,9 @@
             
                             <button class="btn  dropdown-toggle p-0 me-3 ss_btn_down_arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                             <ul class="dropdown-menu ">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
-                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="#">Separated link</a></li>
+                              <% all_grammar.forEach(d => { %>
+                                <li><a class="dropdown-item" href="#"><%= d.grammar%></a></li>
+                              <% }) %>
                             </ul>
             
                           </div>
@@ -105,7 +102,7 @@
                                 <button class="btn ss_btn ss_btn_update" id="btn_save">Save</button>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn ss_btn ss_btn_del" id="btn_delete">Delete</button>
+                                <button class="btn ss_btn ss_btn_del" id="btn_clear">Clear</button>
                             </div>
                             <div class="col-md-6 "></div>
                         </div>
