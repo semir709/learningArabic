@@ -38,12 +38,25 @@ module.exports = {
         const category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [category_name]);
 
         const id = category[0][0].id;
+        let obj;
 
-        const data = await con.promise().query("SELECT arabic, bosnian, english, grammar FROM words WHERE category_id = ?", [id]);
-
-        const obj = data[0];
+        if(id === 'undefined') {
+            obj = 'empty';
+        } else {
+            const data = await con.promise().query("SELECT arabic, bosnian, english, grammar FROM words WHERE category_id = ?", [id]);
+            obj = data[0];
+        }
 
         res.render('partials/list_words.ejs', {data:obj});
+    },
+
+    delete: async function(req, res) {
+        const con = db.getCon();
+        const category_name = req.query.name;
+
+        await con.promise().query('DELETE FROM category WHERE _name = ?', [category_name]);
+        
+        res.render('partials/list_words.ejs', {data:'empty'});
     },
 
     save_admin: async function(req, res) {

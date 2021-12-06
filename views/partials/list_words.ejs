@@ -1,11 +1,18 @@
 
-<% data.forEach(d => { %>
-    <div class="d-flex justify-content-between align-items-center ss_content_holder">
-        <p><%= d.english%></p>
-        <p><%= d.bosnian%></p>
-        <p><%= d.grammar%></p>
-        <div class="ss_col_img_holder">
-            <img src="/img/<%= d.arabic%>" alt="<%=d.arabic%>">
-        </div>
-    </div>    
-<% }) %>
+
+<% if(data == 'empty') { %>
+
+    
+
+<% } else { %>
+    <% data.forEach(d => { %>
+        <div class="d-flex justify-content-between align-items-center ss_content_holder">
+            <p><%= d.english%></p>
+            <p><%= d.bosnian%></p>
+            <p><%= d.grammar%></p>
+            <div class="ss_col_img_holder">
+                <img src="/img/<%= d.arabic%>" alt="<%=d.arabic%>">
+            </div>
+        </div>    
+    <% }) %>
+<% } %>

@@ -50,6 +50,10 @@
 
 }
 
+.ss_p_del_content:hover {
+    cursor: pointer;
+}
+
 .ss_col_img_holder {
     width: 15%;
 }
@@ -64,18 +68,40 @@
     font-size: 20px;
 }
 
+@media (max-width: 1400px) {
+    .ss_p_del_content {
+        width: 12%;
+    
+    }
+}
+
+@media (max-width: 1192px) {
+    .ss_p_del_content {
+        width: 14%;
+    
+    }
+}
+
 @media(max-width: 992px) {
     .ss_col_img_holder {
         width: 20%;
         margin-bottom: 13px;
     }
+    .ss_p_del_content {
+        width: 20%;
     
+    }
 }
 
 @media(max-width: 768px) {
     .ss_col_img_holder {
         width: 30%;
         margin-bottom: 13px;
+    }
+
+    .ss_p_del_content {
+        width: 29%;
+    
     }
     
 }

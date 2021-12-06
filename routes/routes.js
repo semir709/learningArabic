@@ -14,5 +14,6 @@ router.post('/admin/save', admin.save_admin);
 
 router.get('/admin/allWords', admin.getAllWords);
 router.get('/admin/allWords/getData', admin.getData);
+router.delete('/admin/allWords/delete', admin.delete);
 
 module.exports = router;

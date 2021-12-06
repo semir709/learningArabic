@@ -21,3 +21,20 @@ function selectVal_category(e) {
         }
     });
 }
+
+
+$("#ss_del_btn").click(function() {
+
+    const name = $("#category").val();
+
+    console.log(name);
+
+    $.ajax({
+        type: 'DELETE',
+        url: '/admin/allWords/delete' + '?' + $.param({name: name}),
+        success: function(res) {
+            $('#ss_col_data').html(res);
+        }
+    });
+    
+});
