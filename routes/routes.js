@@ -8,9 +8,11 @@ router.get('/home', main.home);
 router.get('/all', main.all_words);
 
 router.get('/login', admin.getLogin);
-router.get('/admin', admin.getAdmin);
-router.get('/admin/allWords', admin.getAllWords);
 
+router.get('/admin', admin.getAdmin);
 router.post('/admin/save', admin.save_admin);
+
+router.get('/admin/allWords', admin.getAllWords);
+router.get('/admin/allWords/getData', admin.getData);
 
 module.exports = router;

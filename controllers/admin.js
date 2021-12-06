@@ -17,8 +17,33 @@ module.exports = {
         
         res.render('admin.ejs', data);
     },
-    getAllWords: function(req, res) {
-        res.render('all_words_admin.ejs');
+    getAllWords: async function(req, res) {
+        const con = db.getCon();
+        const name_category = await con.promise().query('SELECT _name FROM category');
+
+        //const words = await con.promise().query('SELECT arabic, bosnian, english, grammar FROM words WHERE category_id = ')
+
+        const data = {
+            all_category: name_category[0]
+        }
+
+
+        res.render('all_words_admin.ejs', data);
+    },
+
+    getData: async function(req, res) {
+        const con = db.getCon();
+        const category_name = req.query.name;
+
+        const category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [category_name]);
+
+        const id = category[0][0].id;
+
+        const data = await con.promise().query("SELECT arabic, bosnian, english, grammar FROM words WHERE category_id = ?", [id]);
+
+        const obj = data[0];
+
+        res.render('partials/list_words.ejs', {data:obj});
     },
 
     save_admin: async function(req, res) {

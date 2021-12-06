@@ -7,13 +7,29 @@
   
 }
 
-.ss_header_holder h2 {
-    font-size: 25px;
-    font-weight: 400;
-    margin-top: 5px;
-    margin-right: 20px;
-    color: #0ED2A3;
+.ss_header_holder input {
+    flex: none !important;    
+    min-width: 20ch !important;
+    max-width: 100ch !important;
+    border-right: none;
+    
 }
+
+.ss_header_holder input:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+    
+}
+
+.ss_header_holder button {
+    border:solid #ced4da 1px;
+    border-left: none;
+}
+
+.ss_header_holder button:focus {
+    box-shadow: none;
+}
+
 
 .ss_check_box {
     border: 1px solid #0ED2A3;
@@ -30,6 +46,8 @@
 }
 .ss_p_del_content {
     color: #0ED2A3;
+    width: 10%;
+
 }
 
 .ss_col_img_holder {
