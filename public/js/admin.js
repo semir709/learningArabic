@@ -1,5 +1,13 @@
 
 
+function selectVal_category(e) {
+    $("#category").attr('value', e.target.innerHTML);
+}
+
+function selectVal_grammar(e) {
+    $("#grammar").attr('value', e.target.innerHTML);
+}
+
 function onFileSelected(event) {
     let selectedFile = event.target.files[0];
     let reader = new FileReader();

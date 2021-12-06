@@ -28,7 +28,7 @@
                             <button class="btn  dropdown-toggle p-0 me-3 ss_btn_down_arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                             <ul class="dropdown-menu ">
                               <% all_category.forEach(d => { %>
-                                <li><a class="dropdown-item" href="#"><%= d._name%></a></li>
+                                <li><a class="dropdown-item" onclick="selectVal_category(event)"><%= d._name%></a></li>
                               <% }) %>
                             </ul>
             
@@ -56,7 +56,7 @@
                             <button class="btn  dropdown-toggle p-0 me-3 ss_btn_down_arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                             <ul class="dropdown-menu ">
                               <% all_grammar.forEach(d => { %>
-                                <li><a class="dropdown-item" href="#"><%= d.grammar%></a></li>
+                                <li><a class="dropdown-item" onclick="selectVal_grammar(event)" ><%= d.grammar%></a></li>
                               <% }) %>
                             </ul>
             
