@@ -14,10 +14,10 @@ module.exports = {
             all_category: name_category[0],
             all_grammar: grammar[0]
         }
-        
+
         res.render('admin.ejs', data);
     },
-    getAllWords: async function(req, res) {
+    getAll: async function(req, res) {
         const con = db.getCon();
         const name_category = await con.promise().query('SELECT _name FROM category');
 
@@ -55,8 +55,9 @@ module.exports = {
         const category_name = req.query.name;
 
         await con.promise().query('DELETE FROM category WHERE _name = ?', [category_name]);
+
         
-        res.render('partials/list_words.ejs', {data:'empty'});
+        res.send('/admin/allWords');
     },
 
     save_admin: async function(req, res) {
@@ -74,7 +75,7 @@ module.exports = {
             ]);
 
             category_id = category[0].insertId;
-        } 
+        }
         else {
             console.log(check_category[0][0]);
             category_id = check_category[0][0].id;
@@ -91,7 +92,7 @@ module.exports = {
             data.page
         ]);
 
-        
+
         res.render('partials/messages.ejs');
     }
 }

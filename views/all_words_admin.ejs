@@ -22,7 +22,7 @@
             <div class="input-group ss_input_holder ">
               <input type="text" id="category" class="form-control" placeholder="Select category" oninput="resizeInput(event)" >
               <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" ></button>
-              <ul class="dropdown-menu ">
+              <ul class="dropdown-menu" id="ss_drop_down">
                 <% all_category.forEach(d => { %>
                   <li><a class="dropdown-item" onclick="selectVal_category(event)"><%= d._name%></a></li>   
                 <% }) %>
