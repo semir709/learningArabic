@@ -64,6 +64,10 @@
     object-fit: cover;
 }
 
+.ss_content_holder:hover {
+    background: #0ED2A3;
+}
+
 .ss_content_holder p {
     font-size: 20px;
 }

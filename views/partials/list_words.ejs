@@ -6,11 +6,11 @@
 
 <% } else { %>
     <% data.forEach(d => { %>
-        <div class="d-flex justify-content-between align-items-center ss_content_holder">
+        <div class="d-flex justify-content-between align-items-center ss_content_holder" onclick="rowIs(event)">
             <p><%= d.english%></p>
             <p><%= d.bosnian%></p>
-            <p><%= d.grammar%></p>
-            <div class="ss_col_img_holder">
+            <p data-meaning="<%= d.grammar_meaning%>"><%= d.grammar%></p>
+            <div data-arabic="<%= d.arabic%>" class="ss_col_img_holder">
                 <img src="/img/<%= d.arabic%>" alt="<%=d.arabic%>">
             </div>
         </div>    

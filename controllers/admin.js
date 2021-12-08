@@ -1,4 +1,5 @@
 const db = require("../config/database.js");
+const custom = require("../config/custom.js");
 
 module.exports = {
     getLogin: function(req, res) {
@@ -17,6 +18,7 @@ module.exports = {
 
         res.render('admin.ejs', data);
     },
+
     getAll: async function(req, res) {
         const con = db.getCon();
         const name_category = await con.promise().query('SELECT _name FROM category');
@@ -43,7 +45,7 @@ module.exports = {
         if(id === 'undefined') {
             obj = 'empty';
         } else {
-            const data = await con.promise().query("SELECT arabic, bosnian, english, grammar FROM words WHERE category_id = ?", [id]);
+            const data = await con.promise().query("SELECT arabic, bosnian, english, grammar, grammar_meaning FROM words WHERE category_id = ?", [id]);
             obj = data[0];
         }
 
@@ -59,6 +61,7 @@ module.exports = {
         
         res.send('/admin/allWords');
     },
+
 
     save_admin: async function(req, res) {
         const data = req.body;
