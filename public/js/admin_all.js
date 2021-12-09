@@ -6,11 +6,17 @@ function resizeInput(e) {
 }
 
 function selectVal_category(e) {
-    $("#category").attr('value', e.target.innerHTML);
 
-    let category_name = {
-        name: $("#category").val()
+    let category_name = {};
+
+    if(!!e.target.innerHTML) {
+        category_name.name = e.target.innerHTML;
+        $("#category").val(e.target.innerHTML);
+
+    } else {
+        category_name.name = $("#category").val();
     } 
+    
 
     $.ajax({
         type: 'GET',
@@ -21,6 +27,15 @@ function selectVal_category(e) {
         }
     });
 }
+
+$(document).keypress(function(event){
+    var keycode = event.keyCode;
+    if(keycode == '13'){
+        if($(event.target).data('id') == "main_input") {
+            selectVal_category(event);
+        }
+    }
+});
 
 
 $("#ss_del_btn").click(function() {

@@ -37,12 +37,22 @@ module.exports = {
         const con = db.getCon();
         const category_name = req.query.name;
 
-        const category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [category_name]);
+        console.log(category_name);
 
-        const id = category[0][0].id;
-        let obj;
+        const category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [category_name]).then(db_data => {
 
-        if(id === 'undefined') {
+            if(db_data[0].length <= 0) {
+                return 'none';
+            }
+            else {
+                return db_data[0][0].id;
+            }
+        });
+
+        const id = category;
+        let obj;    
+
+        if(id === 'none') {
             obj = 'empty';
         } else {
             const data = await con.promise().query("SELECT arabic, bosnian, english, grammar, grammar_meaning FROM words WHERE category_id = ?", [id]);
