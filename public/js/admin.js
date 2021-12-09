@@ -29,7 +29,10 @@ $('#img_holder').on('click', function(e) {
 });
 
 
-$("#btn_save").click(function() {
+$("#btn_save").click(function(e) {
+    e.preventDefault();
+
+    const form = new FormData($('#form_img').get(0));
     
     const category = $('#category');
     const image_word = $('#image_word');
@@ -39,24 +42,23 @@ $("#btn_save").click(function() {
     const eng_lang = $('#eng_lang');
     const page = $("#page");
 
-    console.log(image_word.get(0).title);
-
     const nameImg = image_word.get(0).title;
-    
-    const data = {
-        category: category.val(),
-        grammar: grammar.val(),
-        grammar_meaning:grammar_meaning.val(),
-        bos_lang: bos_lang.val(),
-        eng_lang: eng_lang.val(),
-        page: page.val(),
-        arabic: nameImg
-    }
+
+    form.append('category', category.val());
+    form.append('grammar', grammar.val());
+    form.append('grammar_meaning', grammar_meaning.val());
+    form.append('bos_lang', bos_lang.val());
+    form.append('eng_lang', eng_lang.val());
+    form.append('page', page.val());
+    form.append('arabic', nameImg);
 
     $.ajax({
         type:"POST",
         url: "/admin/save",
-        data: data, 
+        data: form, 
+        contentType: false,
+        processData: false,
+        cashe:false,
         success: function(data) {
             $('#msg').html(data);       
         }

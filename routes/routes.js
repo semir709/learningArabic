@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const router = express.Router();
 const main = require('../controllers/main');
@@ -10,7 +12,7 @@ router.get('/all', main.all_words);
 router.get('/login', admin.getLogin);
 
 router.get('/admin', admin.getAdmin);
-router.post('/admin/save', admin.save_admin);
+router.post('/admin/save',admin.imgUplode, admin.save_admin);
 
 router.get('/admin/allWords', admin.getAll);
 router.get('/admin/allWords/getData', admin.getData);

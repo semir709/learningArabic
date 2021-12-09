@@ -1,6 +1,9 @@
 const db = require("../config/database.js");
 const custom = require("../config/custom.js");
 
+const multer = require('multer');
+
+
 module.exports = {
     getLogin: function(req, res) {
         res.render('login.ejs');
@@ -72,40 +75,67 @@ module.exports = {
         res.send('/admin/allWords');
     },
 
-
     save_admin: async function(req, res) {
         const data = req.body;
         const con = db.getCon();
 
-        const check_category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [data.category]);
-        let category;
-        let category_id;
 
-        if(check_category[0].length < 1) {
-            category = await con.promise().query('INSERT INTO category VALUES(0, ?, ?)', [
-            data.category,
-            0
+        let msg;
+
+    console.log(req.multerErr);
+        if(typeof req.multerErr === 'undefined') {
+            const check_category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [data.category]);
+            let category;
+            let category_id;
+    
+            if(check_category[0].length < 1) {
+                category = await con.promise().query('INSERT INTO category VALUES(0, ?, ?)', [
+                data.category,
+                0
+                ]);
+    
+                category_id = category[0].insertId;
+            }
+            else {
+                console.log(check_category[0][0]);
+                category_id = check_category[0][0].id;
+            }
+    
+            const save = await con.promise().query("INSERT INTO words VALUES(0, ?, ?, ?, ?, ?, ?, ?)",
+            [
+                category_id,
+                data.arabic,
+                data.bos_lang,
+                data.eng_lang,
+                data.grammar,
+                data.grammar_meaning,
+                data.page
             ]);
 
-            category_id = category[0].insertId;
-        }
+            msg = 'You made new save......';
+        } 
         else {
-            console.log(check_category[0][0]);
-            category_id = check_category[0][0].id;
+            msg = req.multerErr;    
         }
 
-        const save = await con.promise().query("INSERT INTO words VALUES(0, ?, ?, ?, ?, ?, ?, ?)",
-        [
-            category_id,
-            data.arabic,
-            data.bos_lang,
-            data.eng_lang,
-            data.grammar,
-            data.grammar_meaning,
-            data.page
-        ]);
+        console.log(msg);
 
 
-        res.render('partials/messages.ejs');
+        res.render('partials/messages.ejs', {msg});
+    },
+
+    imgUplode: function(req, res, cb) {
+        const upload = multer({storage:custom.folderDest()}).single('img');
+
+        upload(req, res, function (err) {
+            if (err instanceof multer.MulterError) {
+              req.multerErr = "Error while uploding the image";
+            } else if (err) {
+              req.multerErr = "An unknown error occurred when uploading";
+            }
+
+          })
+
+          cb();
     }
 }
