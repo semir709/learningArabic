@@ -18,4 +18,6 @@ router.get('/admin/allWords', admin.getAll);
 router.get('/admin/allWords/getData', admin.getData);
 router.delete('/admin/allWords/delete', admin.delete);
 
+router.delete('/admin/allWords/modal/delete', admin.deleteModal);
+
 module.exports = router;

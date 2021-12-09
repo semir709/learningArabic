@@ -2,6 +2,7 @@ function rowIs(e) {
     let row = $(e.target);
 
    const data = {
+       id: row.data('id'),
        english: $(row.find('p')[0]).text(),
        bosnian: $(row.find('p')[1]).text(),
        grammar: $(row.find('p')[2]).text(),
@@ -22,6 +23,7 @@ function rowIs(e) {
 
        if( data_id == 'english') {
             $(input[i]).val(data.english);
+            $(input[i]).attr('data-id',data.id);
         }
 
         if( data_id == 'bosnian') {

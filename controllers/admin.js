@@ -40,7 +40,7 @@ module.exports = {
         const con = db.getCon();
         const category_name = req.query.name;
 
-        console.log(category_name);
+        console.log(category_name, 'category');
 
         const category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [category_name]).then(db_data => {
 
@@ -58,9 +58,11 @@ module.exports = {
         if(id === 'none') {
             obj = 'empty';
         } else {
-            const data = await con.promise().query("SELECT arabic, bosnian, english, grammar, grammar_meaning FROM words WHERE category_id = ?", [id]);
+            const data = await con.promise().query("SELECT id, arabic, bosnian, english, grammar, grammar_meaning FROM words WHERE category_id = ?", [id]);
             obj = data[0];
         }
+
+        console.log(obj);
 
         res.render('partials/list_words.ejs', {data:obj});
     },
@@ -75,6 +77,25 @@ module.exports = {
         res.send('/admin/allWords');
     },
 
+    deleteModal: async function(req, res) {
+        const con = db.getCon();
+        const id = req.body.id;
+        let isDelete;
+
+        console.log(id);
+
+        await con.promise().query("DELETE FROM words WHERE id = ? ", [id])
+        .then(d => {
+            if(d) isDelete = true;
+        })
+        .catch(err => {
+            if(err) isDelete = false;
+        });
+
+        res.send(isDelete);
+
+    },
+
     save_admin: async function(req, res) {
         const data = req.body;
         const con = db.getCon();
@@ -82,7 +103,7 @@ module.exports = {
 
         let msg;
 
-    console.log(req.multerErr);
+ 
         if(typeof req.multerErr === 'undefined') {
             const check_category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [data.category]);
             let category;

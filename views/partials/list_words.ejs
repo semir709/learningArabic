@@ -6,7 +6,7 @@
 
 <% } else { %>
     <% data.forEach(d => { %>
-        <div class="d-flex justify-content-between align-items-center ss_content_holder" onclick="rowIs(event)">
+        <div class="d-flex justify-content-between align-items-center ss_content_holder " data-id="<%=d.id%>" onclick="rowIs(event)">
             <p><%= d.english%></p>
             <p><%= d.bosnian%></p>
             <p data-meaning="<%= d.grammar_meaning%>"><%= d.grammar%></p>
