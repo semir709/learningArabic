@@ -37,12 +37,13 @@ function rowIs(e) {
         if( data_id == 'grammar_m') {
             $(input[i]).val(data.grammar_m);
         }
-
-        //loading img in the modal.ejs
-        // if( data_id == 'grammar') {
-        //     $(input[i]).val(data.grammar);
-        // }
    }
+
+   let img =  $('#modal').find('img')[0];
+   
+   if( $(img).data('id') == 'arabic') {
+    $(img).attr("src","/img/" + data.arabic);
+}
 
    $('#modal').modal('show');
 
