@@ -1,5 +1,6 @@
 
 
+
 function selectVal_category(e) {
     $("#category").attr('value', e.target.innerHTML);
 }
@@ -32,7 +33,9 @@ $('#img_holder').on('click', function(e) {
 $("#btn_save").click(function(e) {
     e.preventDefault();
 
-    const form = new FormData($('#form_img').get(0));
+    let form_img = document.getElementById('form_img');
+
+    let form = new FormData(form_img);
     
     const category = $('#category');
     const image_word = $('#image_word');
@@ -52,13 +55,13 @@ $("#btn_save").click(function(e) {
     form.append('page', page.val());
     form.append('arabic', nameImg);
 
+
     $.ajax({
         type:"POST",
         url: "/admin/save",
         data: form, 
         contentType: false,
         processData: false,
-        cashe:false,
         success: function(data) {
             $('#msg').html(data);       
         }

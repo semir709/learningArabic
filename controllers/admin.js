@@ -40,8 +40,6 @@ module.exports = {
         const con = db.getCon();
         const category_name = req.query.name;
 
-        console.log(category_name, 'category');
-
         const category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [category_name]).then(db_data => {
 
             if(db_data[0].length <= 0) {
@@ -100,10 +98,8 @@ module.exports = {
         const data = req.body;
         const con = db.getCon();
 
-
         let msg;
 
- 
         if(typeof req.multerErr === 'undefined') {
             const check_category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [data.category]);
             let category;
@@ -118,7 +114,7 @@ module.exports = {
                 category_id = category[0].insertId;
             }
             else {
-                console.log(check_category[0][0]);
+                
                 category_id = check_category[0][0].id;
             }
     
@@ -139,24 +135,20 @@ module.exports = {
             msg = req.multerErr;    
         }
 
-        console.log(msg);
-
 
         res.render('partials/messages.ejs', {msg});
     },
 
     imgUplode: function(req, res, cb) {
-        const upload = multer({storage:custom.folderDest()}).single('img');
-
-        upload(req, res, function (err) {
+        let upload = multer({storage:custom.folderDest()}).single('img');
+        
+        upload(req, res,  async function (err) {
             if (err instanceof multer.MulterError) {
               req.multerErr = "Error while uploding the image";
             } else if (err) {
               req.multerErr = "An unknown error occurred when uploading";
             }
-
+            cb();
           })
-
-          cb();
     }
 }

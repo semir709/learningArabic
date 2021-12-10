@@ -1,4 +1,6 @@
-
+const multer = require('multer');
+// const custom = require('../config/custom')
+// const upload = multer({storage:custom.folderDest()});
 
 const express = require('express');
 const router = express.Router();
