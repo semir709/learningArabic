@@ -22,19 +22,18 @@ module.exports = {
         res.render('admin.ejs', data);
     },
 
+
     getAll: async function(req, res) {
         const con = db.getCon();
         const name_category = await con.promise().query('SELECT _name FROM category');
-
-        //const words = await con.promise().query('SELECT arabic, bosnian, english, grammar FROM words WHERE category_id = ')
 
         const data = {
             all_category: name_category[0]
         }
 
-
         res.render('all_words_admin.ejs', data);
     },
+
 
     getData: async function(req, res) {
         const con = db.getCon();
@@ -56,14 +55,40 @@ module.exports = {
         if(id === 'none') {
             obj = 'empty';
         } else {
-            const data = await con.promise().query("SELECT id, arabic, bosnian, english, grammar, grammar_meaning FROM words WHERE category_id = ?", [id]);
+            
+            const data = await con.promise().query(`SELECT words.id, words.arabic, words.bosnian, words.english,
+            words.grammar, words.grammar_meaning, category._name FROM words
+            INNER JOIN category ON category.id = ? AND category.id = words.category_id`, [id]);
             obj = data[0];
         }
 
-        console.log(obj);
 
         res.render('partials/list_words.ejs', {data:obj});
     },
+
+    reload_category: async function(req, res) {
+
+        const con = db.getCon();
+        const category = req.query;
+
+        const category_new = await con.promise().query(`UPDATE category  INNER JOIN words ON category.id = words.category_id
+        SET category._name = ?
+        WHERE words.id = ?`,[
+            category.name,
+            category.id
+        ]);
+
+        const name_category = await con.promise().query('SELECT _name FROM category');
+
+        const data = {
+            all_category: name_category[0],
+            category_new: category.name
+        }
+
+        res.send(data);
+
+    },
+
 
     delete: async function(req, res) {
         const con = db.getCon();
@@ -75,12 +100,13 @@ module.exports = {
         res.send('/admin/allWords');
     },
 
+
     deleteModal: async function(req, res) {
         const con = db.getCon();
         const id = req.body.id;
         let isDelete;
 
-        console.log(id);
+
 
         await con.promise().query("DELETE FROM words WHERE id = ? ", [id])
         .then(d => {
@@ -93,6 +119,37 @@ module.exports = {
         res.send(isDelete);
 
     },
+
+
+    updateModal: async function(req, res) {
+        const data = req.body;
+        const con = db.getCon();
+        let isUpdate;
+
+        console.log(data, 'data');
+            
+        const id_category = await con.promise().query(`UPDATE category INNER JOIN words ON words.category_id = category.id SET category._name = ?
+        WHERE words.id = ?`,
+        [
+            data.category,
+            data.id
+        ]).then(r => {isUpdate = true}).catch(err => {if(err) isUpdate = false});
+
+        await con.promise().query('UPDATE words SET arabic = ?, bosnian = ?, english = ?, grammar = ?, grammar_meaning = ? WHERE id = ?',
+        [
+            data.arabic,
+            data.bosnian,
+            data.english,
+            data.grammar,
+            data.grammar_m,
+            data.id
+            //page
+        ]).then(r => isUpdate = true).catch(err => {if(err) isUpdate = false});
+
+        res.send(isUpdate);
+
+    },
+
 
     save_admin: async function(req, res) {
         const data = req.body;
@@ -138,6 +195,7 @@ module.exports = {
 
         res.render('partials/messages.ejs', {msg});
     },
+
 
     imgUplode: function(req, res, cb) {
         let upload = multer({storage:custom.folderDest()}).single('img');

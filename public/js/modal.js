@@ -1,3 +1,5 @@
+
+
 function rowIs(e) {
     let row = $(e.target);
 
@@ -12,6 +14,7 @@ function rowIs(e) {
    }
 
    let input = $('#modal').find('input');
+   $('#modal').attr('data-id',data.id);
 
    for(let i = 0; i < input.length; i++) {
 
@@ -23,7 +26,7 @@ function rowIs(e) {
 
        if( data_id == 'english') {
             $(input[i]).val(data.english);
-            $(input[i]).attr('data-id',data.id);
+            
         }
 
         if( data_id == 'bosnian') {
@@ -69,4 +72,128 @@ function onFileSelected(event) {
   $('#img_holder').on('click', function(e) {
     document.getElementById('upload').click();
     
+});
+
+function reload_data(res, msg) {
+
+    if(res) {
+        $('#modal').modal('hide');
+
+        const category_name = {};
+        
+        category_name.name = $("#category").val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/allWords/getData',
+            data: category_name,
+            success: function(res) {
+                
+                $('#ss_col_data').html(res);
+            }
+        });
+    }
+    else {
+
+        $("#ss_modal_err_msg").append(msg);
+    }
+}
+
+$("#ss_delete_row").click(function() {
+    const id = $('#modal').attr('data-id');
+
+    $.ajax({
+        type:'DELETE',
+        url: '/admin/allWords/modal/delete',
+        data: {id},
+        success: function(res) {
+            let msg = '<h3 style="color: red; font-size: 20px; font-weight: 200; margin-left: 24px">Data base is unabel to delete the data</h3>'
+            reload_data(res, msg);
+    
+        }
+    });
+});
+
+function findData(modal) {
+    const input = modal.find('input');
+
+    let form_img = document.getElementById('form_img');
+
+    let form = new FormData(form_img);
+    
+    form.append('id', modal.attr('data-id'));
+
+    for(let i = 0; i < input.length; i++) {
+
+        let data_id = $(input[i]).data('id');
+ 
+        if( data_id == 'category') {
+             form.append('category',$(input[i]).val());
+
+        }
+ 
+        if( data_id == 'english') {
+             form.append('english',$(input[i]).val());
+         }
+ 
+         if( data_id == 'bosnian') {
+             form.append('bosnian',$(input[i]).val());
+        }
+ 
+        if( data_id == 'grammar') {
+             form.append('grammar',$(input[i]).val());
+         }
+ 
+         if( data_id == 'grammar_m') {
+             form.append('grammar_m',$(input[i]).val());
+         }
+    }
+
+    const image_word = $('#image_word');
+    const nameImg = image_word.get(0).title;
+    form.append('arabic', nameImg);
+
+
+    return form;
+}
+
+$('#ss_update_row').click(function() {
+
+    const data = findData($('#modal'));
+
+    $("#category").val();
+
+
+    $.ajax({
+        type:'POST',
+        url: '/admin/allWords/modal/update',
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function(res) {
+            const msg = '<h3 style="color: red; font-size: 20px; font-weight: 200; margin-left: 24px">Data base is unabel to update the data</h3>'
+            reload_data(res, msg);
+
+            let category = {};
+
+            category.name = $("#category_input").val();
+            category.id = $("#modal").attr('data-id');
+
+            $.ajax({
+                type: 'GET',
+                url: '/admin/allWords/getCategory',
+                data: category,
+                success: function(res) {
+
+                    console.log(res.category_new);
+
+                    $("#category").val(res.category_new);
+                    reload_data(res, msg);
+                    
+                }
+            });
+            
+        }
+    });
+
 });

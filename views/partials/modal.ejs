@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modal" tabindex="-1" aria-hidden="true" >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -50,8 +50,12 @@
                 <div class="ss_content_modal_holder">
                     <label for="image_word">Arabic word</label>
                         <div class="ss_img_holder d-flex justify-content-between" id="img_holder">
+                            
                             <img src="/img/test.png" title="test.png" id="image_word" data-id="arabic"></img>
-                            <input name="img"  id="upload" class="ss_dialog_box" type="file"  onchange="onFileSelected(event)"  accept="image/*" >
+                            <form id="form_img" action="" method="post" enctype="multipart/form-data">
+                                <input name="img"  id="upload" class="ss_dialog_box" type="file"  onchange="onFileSelected(event)"  accept="image/*" >
+                            </form>
+                            
                             <i class="fas fa-image"></i>
                         </div>
                 </div>
@@ -59,7 +63,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" id="ss_update_row">Save changes</button>
           <button type="button" class="btn btn-primary" id="ss_delete_row">Delete</button>
         </div>
       </div>

@@ -18,8 +18,10 @@ router.post('/admin/save',admin.imgUplode, admin.save_admin);
 
 router.get('/admin/allWords', admin.getAll);
 router.get('/admin/allWords/getData', admin.getData);
+router.get('/admin/allWords/getCategory', admin.reload_category);
 router.delete('/admin/allWords/delete', admin.delete);
 
 router.delete('/admin/allWords/modal/delete', admin.deleteModal);
+router.post('/admin/allWords/modal/update', admin.imgUplode,admin.updateModal);
 
 module.exports = router;
