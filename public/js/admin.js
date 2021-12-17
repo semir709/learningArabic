@@ -45,7 +45,7 @@ $("#btn_save").click(function(e) {
     const eng_lang = $('#eng_lang');
     const page = $("#page");
 
-    const nameImg = image_word.get(0).title;
+    const nameImg = image_word.get(0).src;
 
     form.append('category', category.val());
     form.append('grammar', grammar.val());

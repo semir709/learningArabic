@@ -2,6 +2,7 @@ const db = require("../config/database.js");
 const custom = require("../config/custom.js");
 
 const multer = require('multer');
+const { response } = require("express");
 
 
 module.exports = {
@@ -32,6 +33,17 @@ module.exports = {
         }
 
         res.render('all_words_admin.ejs', data);
+    },
+
+    reload_category: async function(req, res) {
+        const con = db.getCon();
+        const name_category = await con.promise().query('SELECT _name FROM category');
+
+        const data = {
+            all_category: name_category[0]
+        }
+
+        res.send(data);
     },
 
 
@@ -126,7 +138,7 @@ module.exports = {
         const con = db.getCon();
         let isUpdate;
 
-        console.log(data, 'data');
+        const img_data = req.file;
             
         const id_category = await con.promise().query(`UPDATE category INNER JOIN words ON words.category_id = category.id SET category._name = ?
         WHERE words.id = ?`,
@@ -135,9 +147,10 @@ module.exports = {
             data.id
         ]).then(r => {isUpdate = true}).catch(err => {if(err) isUpdate = false});
 
-        await con.promise().query('UPDATE words SET arabic = ?, bosnian = ?, english = ?, grammar = ?, grammar_meaning = ? WHERE id = ?',
+        if (!img_data) {
+
+            await con.promise().query('UPDATE words SET bosnian = ?, english = ?, grammar = ?, grammar_meaning = ? WHERE id = ?',
         [
-            data.arabic,
             data.bosnian,
             data.english,
             data.grammar,
@@ -145,6 +158,22 @@ module.exports = {
             data.id
             //page
         ]).then(r => isUpdate = true).catch(err => {if(err) isUpdate = false});
+            
+        } else {
+            const imgPath = "/img/" + img_data.filename;
+
+            await con.promise().query('UPDATE words SET arabic = ?, bosnian = ?, english = ?, grammar = ?, grammar_meaning = ? WHERE id = ?',
+            [
+                imgPath,
+                data.bosnian,
+                data.english,
+                data.grammar,
+                data.grammar_m,
+                data.id
+                //page
+            ]).then(r => isUpdate = true).catch(err => {if(err) isUpdate = false});
+          
+        }
 
         res.send(isUpdate);
 
@@ -154,6 +183,10 @@ module.exports = {
     save_admin: async function(req, res) {
         const data = req.body;
         const con = db.getCon();
+
+        const img_data = req.file;
+
+        console.log(req.file);
 
         let msg;
 
@@ -174,19 +207,40 @@ module.exports = {
                 
                 category_id = check_category[0][0].id;
             }
-    
-            const save = await con.promise().query("INSERT INTO words VALUES(0, ?, ?, ?, ?, ?, ?, ?)",
-            [
-                category_id,
-                data.arabic,
-                data.bos_lang,
-                data.eng_lang,
-                data.grammar,
-                data.grammar_meaning,
-                data.page
-            ]);
 
-            msg = 'You made new save......';
+            if (!img_data) {
+
+                const save = await con.promise().query("INSERT INTO words VALUES(0, ?, ?, ?, ?, ?, ?, ?)",
+                [
+                    category_id,
+                    "/img/none.png",
+                    data.bos_lang,
+                    data.eng_lang,
+                    data.grammar,
+                    data.grammar_meaning,
+                    data.page
+                ]);
+
+                msg = 'You made new save......';
+            
+            } else {
+                const imgPath = "/img/" + img_data.filename;
+
+                const save = await con.promise().query("INSERT INTO words VALUES(0, ?, ?, ?, ?, ?, ?, ?)",
+                [
+                    category_id,
+                    imgPath,
+                    data.bos_lang,
+                    data.eng_lang,
+                    data.grammar,
+                    data.grammar_meaning,
+                    data.page
+                ]);
+
+                msg = 'You made new save......';
+
+              
+          }
         } 
         else {
             msg = req.multerErr;    
@@ -195,18 +249,4 @@ module.exports = {
 
         res.render('partials/messages.ejs', {msg});
     },
-
-
-    imgUplode: function(req, res, cb) {
-        let upload = multer({storage:custom.folderDest()}).single('img');
-        
-        upload(req, res,  async function (err) {
-            if (err instanceof multer.MulterError) {
-              req.multerErr = "Error while uploding the image";
-            } else if (err) {
-              req.multerErr = "An unknown error occurred when uploading";
-            }
-            cb();
-          })
-    }
 }

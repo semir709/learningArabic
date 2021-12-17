@@ -45,7 +45,7 @@ function rowIs(e) {
    let img =  $('#modal').find('img')[0];
    
    if( $(img).data('id') == 'arabic') {
-    $(img).attr("src","/img/" + data.arabic);
+    $(img).attr("src",data.arabic);
 }
 
    $('#modal').modal('show');
@@ -149,11 +149,6 @@ function findData(modal) {
          }
     }
 
-    const image_word = $('#image_word');
-    const nameImg = image_word.get(0).title;
-    form.append('arabic', nameImg);
-
-
     return form;
 }
 
@@ -185,15 +180,41 @@ $('#ss_update_row').click(function() {
                 data: category,
                 success: function(res) {
 
-                    console.log(res.category_new);
-
                     $("#category").val(res.category_new);
                     reload_data(res, msg);
                     
                 }
             });
+
+            $.ajax({
+                type: 'GET',
+                url: '/admin/allWords/category_reload',
+                success: function(res) {
+
+                    $("#ss_drop_down").empty();
+
+                    res.all_category.forEach(c => {
+
+                        console.log(c._name);
+
+                        let li = $("<li></li>").append($("<a></a>")
+                        .addClass("dropdown-item")
+                        .attr("onkeypress", "enterKey(event)")
+                        .attr("onclick","selectVal_category(event)")
+                        .text(c._name)
+                        );
+
+                        $("#ss_drop_down").append(li);
+
+                    });
+                    
+                }
+            });
+            
             
         }
     });
+
+    $("#upload").val("");
 
 });
