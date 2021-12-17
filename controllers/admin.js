@@ -69,7 +69,7 @@ module.exports = {
         } else {
             
             const data = await con.promise().query(`SELECT words.id, words.arabic, words.bosnian, words.english,
-            words.grammar, words.grammar_meaning, category._name FROM words
+            words.grammar, words.grammar_meaning, words._page,category._name FROM words
             INNER JOIN category ON category.id = ? AND category.id = words.category_id`, [id]);
             obj = data[0];
         }
@@ -139,6 +139,7 @@ module.exports = {
         let isUpdate;
 
         const img_data = req.file;
+
             
         const id_category = await con.promise().query(`UPDATE category INNER JOIN words ON words.category_id = category.id SET category._name = ?
         WHERE words.id = ?`,
@@ -149,28 +150,30 @@ module.exports = {
 
         if (!img_data) {
 
-            await con.promise().query('UPDATE words SET bosnian = ?, english = ?, grammar = ?, grammar_meaning = ? WHERE id = ?',
+            await con.promise().query('UPDATE words SET bosnian = ?, english = ?, grammar = ?, grammar_meaning = ?, _page = ? WHERE id = ?',
         [
             data.bosnian,
             data.english,
             data.grammar,
             data.grammar_m,
+            data.page,
             data.id
-            //page
+            
         ]).then(r => isUpdate = true).catch(err => {if(err) isUpdate = false});
             
         } else {
             const imgPath = "/img/" + img_data.filename;
 
-            await con.promise().query('UPDATE words SET arabic = ?, bosnian = ?, english = ?, grammar = ?, grammar_meaning = ? WHERE id = ?',
+            await con.promise().query('UPDATE words SET arabic = ?, bosnian = ?, english = ?, grammar = ?, grammar_meaning = ?, _page = ? WHERE id = ?',
             [
                 imgPath,
                 data.bosnian,
                 data.english,
                 data.grammar,
                 data.grammar_m,
+                data.page,
                 data.id
-                //page
+                
             ]).then(r => isUpdate = true).catch(err => {if(err) isUpdate = false});
           
         }
@@ -185,8 +188,6 @@ module.exports = {
         const con = db.getCon();
 
         const img_data = req.file;
-
-        console.log(req.file);
 
         let msg;
 

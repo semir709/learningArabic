@@ -10,8 +10,10 @@ function rowIs(e) {
        grammar: $(row.find('p')[2]).text(),
        grammar_m: $(row.find('p')[2]).data('meaning'),
        arabic:  $(row.find('div')[0]).data('arabic'),
-       category: $("#category").val()
+       category: $("#category").val(),
+       page: row.data('page')
    }
+
 
    let input = $('#modal').find('input');
    $('#modal').attr('data-id',data.id);
@@ -39,6 +41,10 @@ function rowIs(e) {
 
         if( data_id == 'grammar_m') {
             $(input[i]).val(data.grammar_m);
+        }
+
+        if(data_id == 'page') {
+            $(input[i]).val(data.page);
         }
    }
 
@@ -147,6 +153,10 @@ function findData(modal) {
          if( data_id == 'grammar_m') {
              form.append('grammar_m',$(input[i]).val());
          }
+
+         if( data_id == 'page') {
+            form.append('page',$(input[i]).val());
+        }
     }
 
     return form;

@@ -29,6 +29,10 @@
     font-size: 25px;
 }
 
+.ss_page_input {
+    width: 100%;
+}
+
 @media(max-width: 768px) {
 
     .ss_img_holder {
