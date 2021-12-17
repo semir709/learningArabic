@@ -29,6 +29,18 @@ $('#img_holder').on('click', function(e) {
     
 });
 
+function clearInput() {
+
+    $('#category').val("");
+    $('#image_word').attr('src', "").attr('title', "");
+    $('#grammar').val("");
+    $('#grammar_meaning').val("");
+    $('#bos_lang').val("");
+    $('#eng_lang').val("");
+    $("#page").val("");
+
+}
+
 
 $("#btn_save").click(function(e) {
     e.preventDefault();
@@ -63,20 +75,15 @@ $("#btn_save").click(function(e) {
         contentType: false,
         processData: false,
         success: function(data) {
-            $('#msg').html(data);       
+            $('#msg').html(data);  
+            clearInput();     
         }
     });
 
 });
 
 $('#btn_clear').click(function () {
-    $('#category').val("");
-    $('#image_word').attr('src', "").attr('title', "");
-    $('#grammar').val("");
-    $('#grammar_meaning').val("");
-    $('#bos_lang').val("");
-    $('#eng_lang').val("");
-    $("#page").val("");
+    clearInput();
 });
 
 
