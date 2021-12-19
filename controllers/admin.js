@@ -138,8 +138,6 @@ module.exports = {
         const con = db.getCon();
         let isUpdate;
 
-        const img_data = req.file;
-
             
         const id_category = await con.promise().query(`UPDATE category INNER JOIN words ON words.category_id = category.id SET category._name = ?
         WHERE words.id = ?`,
@@ -147,36 +145,19 @@ module.exports = {
             data.category,
             data.id
         ]).then(r => {isUpdate = true}).catch(err => {if(err) isUpdate = false});
+  
 
-        if (!img_data) {
-
-            await con.promise().query('UPDATE words SET bosnian = ?, english = ?, grammar = ?, grammar_meaning = ?, _page = ? WHERE id = ?',
-        [
-            data.bosnian,
-            data.english,
-            data.grammar,
-            data.grammar_m,
-            data.page,
-            data.id
-            
-        ]).then(r => isUpdate = true).catch(err => {if(err) isUpdate = false});
-            
-        } else {
-            const imgPath = "/img/" + img_data.filename;
-
-            await con.promise().query('UPDATE words SET arabic = ?, bosnian = ?, english = ?, grammar = ?, grammar_meaning = ?, _page = ? WHERE id = ?',
+        await con.promise().query('UPDATE words SET bosnian = ?, english = ?, grammar = ?, grammar_meaning = ?, _page = ?, arabic = ? WHERE id = ?',
             [
-                imgPath,
                 data.bosnian,
                 data.english,
                 data.grammar,
                 data.grammar_m,
                 data.page,
+                data.arabic,
                 data.id
                 
             ]).then(r => isUpdate = true).catch(err => {if(err) isUpdate = false});
-          
-        }
 
         res.send(isUpdate);
 

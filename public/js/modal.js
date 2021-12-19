@@ -3,13 +3,15 @@
 function rowIs(e) {
     let row = $(e.target);
 
+    console.log($(row.find('p')[3]).text());
+
    const data = {
        id: row.data('id'),
        english: $(row.find('p')[0]).text(),
        bosnian: $(row.find('p')[1]).text(),
        grammar: $(row.find('p')[2]).text(),
        grammar_m: $(row.find('p')[2]).data('meaning'),
-       arabic:  $(row.find('div')[0]).data('arabic'),
+       arabic:  $(row.find('p')[3]).text(),
        category: $("#category").val(),
        page: row.data('page')
    }
@@ -46,39 +48,16 @@ function rowIs(e) {
         if(data_id == 'page') {
             $(input[i]).val(data.page);
         }
+
+        if(data_id == 'arabic') {
+            $(input[i]).val(data.arabic);
+        }
    }
-
-   let img =  $('#modal').find('img')[0];
    
-   if( $(img).data('id') == 'arabic') {
-    $(img).attr("src",data.arabic);
-}
-
    $('#modal').modal('show');
 
   
 }
-
-
-function onFileSelected(event) {
-    let selectedFile = event.target.files[0];
-    let reader = new FileReader();
-  
-    let img = $('#image_word');
-    img.attr('title', selectedFile.name);
-  
-    reader.onload = function(event) {
-        img.attr('src', event.target.result);
-        
-    };
-
-    reader.readAsDataURL(selectedFile);
-  }
-
-  $('#img_holder').on('click', function(e) {
-    document.getElementById('upload').click();
-    
-});
 
 function reload_data(res, msg) {
 
@@ -122,44 +101,44 @@ $("#ss_delete_row").click(function() {
 
 function findData(modal) {
     const input = modal.find('input');
+    const data = {};
 
-    let form_img = document.getElementById('form_img');
-
-    let form = new FormData(form_img);
-    
-    form.append('id', modal.attr('data-id'));
+    data.id = modal.attr('data-id');
 
     for(let i = 0; i < input.length; i++) {
 
         let data_id = $(input[i]).data('id');
  
         if( data_id == 'category') {
-             form.append('category',$(input[i]).val());
-
+            data.category = $(input[i]).val();
         }
  
         if( data_id == 'english') {
-             form.append('english',$(input[i]).val());
+            data.english = $(input[i]).val();
          }
  
          if( data_id == 'bosnian') {
-             form.append('bosnian',$(input[i]).val());
+            data.bosnian = $(input[i]).val();
         }
  
         if( data_id == 'grammar') {
-             form.append('grammar',$(input[i]).val());
+            data.grammar = $(input[i]).val();
          }
  
-         if( data_id == 'grammar_m') {
-             form.append('grammar_m',$(input[i]).val());
-         }
+        if( data_id == 'grammar_m') {
+            data.grammar_m = $(input[i]).val();
+        }
 
-         if( data_id == 'page') {
-            form.append('page',$(input[i]).val());
+        if( data_id == 'page') {
+            data.page = $(input[i]).val();
+        }
+
+        if( data_id == 'arabic') {
+            data.arabic = $(input[i]).val();
         }
     }
 
-    return form;
+    return data;
 }
 
 $('#ss_update_row').click(function() {
@@ -173,8 +152,6 @@ $('#ss_update_row').click(function() {
         type:'POST',
         url: '/admin/allWords/modal/update',
         data: data,
-        processData: false,
-        contentType: false,
         success: function(res) {
             const msg = '<h3 style="color: red; font-size: 20px; font-weight: 200; margin-left: 24px">Data base is unabel to update the data</h3>'
             reload_data(res, msg);

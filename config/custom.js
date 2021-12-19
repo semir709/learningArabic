@@ -1,9 +1,3 @@
-const multer = require('multer');
-const path = require('path');
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
 
 module.exports = {
     isEmpty: function(object) {
@@ -15,16 +9,4 @@ module.exports = {
         return isEmpty;
     }
 
-    // folderDest: function() {
-    //     const storage = multer.diskStorage({
-    //         destination: function(req, file, cb) {
-    //             cb(null, './public/images/');
-    //         },
-    //         filename: function(req, file, cb) {
-    //             cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
-    //         }
-    //     });
-
-    //     return storage;
-    // }
 }

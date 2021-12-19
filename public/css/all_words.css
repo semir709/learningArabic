@@ -127,16 +127,6 @@
     font-size: 20px;
 }
 
-.ss_col_img_holder {
-    width: 35%;
-}
-
-.ss_col_img_holder img{
-    width: 30%;
-    height: auto;
-    object-fit: cover;
-}
-
 @media(max-width: 768px) {
     .ss_sidebar_col {
         display: none;  
