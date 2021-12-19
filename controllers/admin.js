@@ -187,65 +187,39 @@ module.exports = {
         const data = req.body;
         const con = db.getCon();
 
-        const img_data = req.file;
-
         let msg;
 
-        if(typeof req.multerErr === 'undefined') {
-            const check_category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [data.category]);
-            let category;
-            let category_id;
-    
-            if(check_category[0].length < 1) {
-                category = await con.promise().query('INSERT INTO category VALUES(0, ?, ?)', [
-                data.category,
-                0
-                ]);
-    
-                category_id = category[0].insertId;
-            }
-            else {
-                
-                category_id = check_category[0][0].id;
-            }
+       
+        const check_category = await con.promise().query('SELECT id FROM category WHERE _name = ?', [data.category]);
+        let category;
+        let category_id;
 
-            if (!img_data) {
+        if(check_category[0].length < 1) {
+            category = await con.promise().query('INSERT INTO category VALUES(0, ?, ?)', [
+            data.category,
+            0
+            ]);
 
-                const save = await con.promise().query("INSERT INTO words VALUES(0, ?, ?, ?, ?, ?, ?, ?)",
-                [
-                    category_id,
-                    "/img/none.png",
-                    data.bos_lang,
-                    data.eng_lang,
-                    data.grammar,
-                    data.grammar_meaning,
-                    data.page
-                ]);
-
-                msg = 'You made new save......';
-            
-            } else {
-                const imgPath = "/img/" + img_data.filename;
-
-                const save = await con.promise().query("INSERT INTO words VALUES(0, ?, ?, ?, ?, ?, ?, ?)",
-                [
-                    category_id,
-                    imgPath,
-                    data.bos_lang,
-                    data.eng_lang,
-                    data.grammar,
-                    data.grammar_meaning,
-                    data.page
-                ]);
-
-                msg = 'You made new save......';
-
-              
-          }
-        } 
-        else {
-            msg = req.multerErr;    
+            category_id = category[0].insertId;
         }
+        else {
+            
+            category_id = check_category[0][0].id;
+        }
+
+        const save = await con.promise().query("INSERT INTO words VALUES(0, ?, ?, ?, ?, ?, ?, ?)",
+        [
+            category_id,
+            data.arabic,
+            data.bos_lang,
+            data.eng_lang,
+            data.grammar,
+            data.grammar_meaning,
+            data.page
+        ]);
+
+        msg = 'You made new save......';
+     
 
 
         res.render('partials/messages.ejs', {msg});

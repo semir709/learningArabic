@@ -38,44 +38,38 @@ function clearInput() {
     $('#bos_lang').val("");
     $('#eng_lang').val("");
     $("#page").val("");
+    $('#arabic').val("");
 
 }
 
 
 $("#btn_save").click(function(e) {
-    e.preventDefault();
-
-    let form_img = document.getElementById('form_img');
-
-    let form = new FormData(form_img);
     
     const category = $('#category');
-    const image_word = $('#image_word');
+    const arabic = $('#arabic');
     const grammar = $('#grammar');
     const grammar_meaning = $('#grammar_meaning');
     const bos_lang = $('#bos_lang');
     const eng_lang = $('#eng_lang');
     const page = $("#page");
 
-    const nameImg = image_word.get(0).src;
-
-    form.append('category', category.val());
-    form.append('grammar', grammar.val());
-    form.append('grammar_meaning', grammar_meaning.val());
-    form.append('bos_lang', bos_lang.val());
-    form.append('eng_lang', eng_lang.val());
-    form.append('page', page.val());
-    form.append('arabic', nameImg);
+    const data = {
+        category: category.val(),
+        grammar: grammar.val(),
+        grammar_meaning: grammar_meaning.val(),
+        bos_lang: bos_lang.val(),
+        eng_lang: eng_lang.val(),
+        page: page.val(),
+        arabic: arabic.val()
+    }
 
 
     $.ajax({
         type:"POST",
         url: "/admin/save",
-        data: form, 
-        contentType: false,
-        processData: false,
+        data: data, 
         success: function(data) {
-            $('#msg').html(data);  
+            $('#msg').append(data);  
             clearInput();     
         }
     });
